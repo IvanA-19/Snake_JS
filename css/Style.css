@@ -1,0 +1,37 @@
+canvas{
+    display:block;
+    margin: 0 auto;
+}
+
+#rb{
+    position: absolute;
+    top: 320px;
+    left: 671px;
+    width: 192px;
+    height: 60px;
+    font-style: italic;
+    font-size: xx-large;
+    background-color: skyblue;
+}
+
+#rb1{
+    position: absolute;
+    top: 320px;
+    left: 671px;
+    width: 192px;
+    height: 60px;
+    font-style: italic;
+    font-size: xx-large;
+    background-color: skyblue;
+}
+
+#sb{
+    position: absolute;
+    top: 320px;
+    left: 671px;
+    width: 192px;
+    height: 60px;
+    font-style: italic;
+    font-size: xx-large;
+    background-color: skyblue;
+}
