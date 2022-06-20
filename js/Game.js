@@ -370,17 +370,17 @@ function drawGame(){
         clearInterval(game);
         document.body.appendChild(resumeButton);
     }
-
+    
     if(new_game){
         document.body.appendChild(startButton);
         new_game = false;
     }
 
     ctx.fillStyle = "rgb(157,255,212)";
-    ctx.fillRect(0, 0, 960, 678); //drawImage(ground, 0, 0);
+    ctx.fillRect(0, 0, 960, 672); //drawImage(ground, 0, 0);
 
     for (let i = 0; i < 30; i++) {
-        for (let j = 0; j < 21; j++) {
+        for (let j = 2; j < 21; j++) {
             ctx.drawImage(cellImg, i * box, j * box);
         }
     }
@@ -395,6 +395,10 @@ function drawGame(){
             ctx.drawImage(snakeImg, snake[i].x, snake[i].y);
         }
     }
+
+    ctx.fillStyle = "black";
+    ctx.font = "40px Times new roman Bold";
+    ctx.fillText("Score: " + score, 400, 45);
 
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
@@ -426,18 +430,18 @@ function drawGame(){
         snake.pop();
     }
 
-    if(snakeX < box || snakeX > box * 28 || snakeY < box || snakeY > box * 19){
+    if(snakeX === 0 || snakeX > box * 28 || snakeY < box * 3 || snakeY > box * 19){
         clearInterval(game);
         gameStarted = false;
         document.body.appendChild(restartButton);
     }
 
     for(let i = 0; i < 30; i++){
-        ctx.drawImage(wallImg, i * box, 0);
+        ctx.drawImage(wallImg, i * box, 2 * box);
         ctx.drawImage(wallImg, i * box, 20 * box);
     }
 
-    for(let i = 1; i < 20; i++){
+    for(let i = 3; i < 20; i++){
         ctx.drawImage(wallImg, 0, i * box);
         ctx.drawImage(wallImg, 29 * box, i * box);
     }
