@@ -16,10 +16,21 @@ canvas {
 
 #rb1{
     position: absolute;
-    top: 320px;
+    top: 245px;
     left: 671px;
     width: 192px;
     height: 60px;
+    font-style: italic;
+    font-size: xx-large;
+    background-color: lawngreen;
+}
+
+#resfpause{
+    position: absolute;
+    top: 310px;
+    left: 671px;
+    width: 192px;
+    height: 80px;
     font-style: italic;
     font-size: xx-large;
     background-color: lawngreen;
@@ -29,6 +40,50 @@ canvas {
     position: absolute;
     top: 320px;
     left: 671px;
+    width: 192px;
+    height: 60px;
+    font-style: italic;
+    font-size: xx-large;
+    background-color: lawngreen;
+}
+
+#right{
+    position: absolute;
+    top: 220px;
+    left: 1300px;
+    width: 192px;
+    height: 60px;
+    font-style: italic;
+    font-size: xx-large;
+    background-color: lawngreen;
+}
+
+#left{
+    position: absolute;
+    top: 290px;
+    left: 1300px;
+    width: 192px;
+    height: 60px;
+    font-style: italic;
+    font-size: xx-large;
+    background-color: lawngreen;
+}
+
+#down{
+    position: absolute;
+    top: 360px;
+    left: 1300px;
+    width: 192px;
+    height: 60px;
+    font-style: italic;
+    font-size: xx-large;
+    background-color: lawngreen;
+}
+
+#up{
+    position: absolute;
+    top: 430px;
+    left: 1300px;
     width: 192px;
     height: 60px;
     font-style: italic;

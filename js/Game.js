@@ -271,11 +271,53 @@ resumeButton.id = 'rb1';
 startButton = document.createElement('BUTTON');
 startButton.id = 'sb';
 
+restartFromPauseButton = document.createElement('BUTTON');
+restartFromPauseButton.id = 'resfpause';
+
+controlButtons = {
+    rightButton: document.createElement('BUTTON'),
+    leftButton: document.createElement('BUTTON'),
+    upButton: document.createElement('BUTTON'),
+    downButton: document.createElement('BUTTON'),
+};
+
+controlButtons.rightButton.id = 'right';
+controlButtons.leftButton.id = 'left';
+controlButtons.upButton.id = 'up';
+controlButtons.downButton.id = 'down';
+
+controlButtons.rightButton.onclick = function (){
+    if(dir !== "left") {
+        dir = "right";
+    }
+}
+
+controlButtons.leftButton.onclick = function (){
+    if(dir !== "right") {
+        dir = "left";
+    }
+}
+
+controlButtons.upButton.onclick = function (){
+    if(dir !== "down") {
+        dir = "up";
+    }
+}
+
+controlButtons.downButton.onclick = function (){
+    if(dir !== "up") {
+        dir = "down";
+    }
+}
+
 resumeButton.onclick = function () {
     document.body.removeChild(resumeButton);
     game_paused = false;
     game = setInterval(drawGame, 110);
+    document.body.removeChild(restartFromPauseButton);
 }
+
+restartFromPauseButton.textContent = 'Start new game';
 
 startButton.onclick = function () {
     document.body.removeChild(startButton);
@@ -283,9 +325,28 @@ startButton.onclick = function () {
     dir = "right";
 }
 
+const addPauseButtons = function(){
+    document.body.appendChild(resumeButton);
+    document.body.appendChild(restartFromPauseButton);
+}
+
 restartButton.onclick = function() {
     new_game = true;
     document.body.removeChild(restartButton);
+    snake.splice(1, snake.length);
+    snake[0].x = 10 * box;
+    snake[0].y = 10 * box;
+    score = 0;
+    dir = "";
+    newFood();
+    game = setInterval(drawGame, 110);
+}
+
+restartFromPauseButton.onclick = function(){
+    new_game = true;
+    game_paused = false;
+    document.body.removeChild(restartFromPauseButton);
+    document.body.removeChild(resumeButton);
     snake.splice(1, snake.length);
     snake[0].x = 10 * box;
     snake[0].y = 10 * box;
@@ -355,6 +416,17 @@ function direction(event){
     }
 }
 
+function appendControlButtons(){
+    document.body.appendChild(controlButtons.rightButton);
+    controlButtons.rightButton.textContent = "Right";
+    document.body.appendChild(controlButtons.leftButton);
+    controlButtons.leftButton.textContent = "Left";
+    document.body.appendChild(controlButtons.downButton);
+    controlButtons.downButton.textContent = "Down";
+    document.body.appendChild(controlButtons.upButton);
+    controlButtons.upButton.textContent = "Up";
+}
+
 function eatTale(head, arr){
     for(let i = 0; i < arr.length; i++){
         if(head.x === arr[i].x && head.y === arr[i].y){
@@ -368,8 +440,10 @@ function eatTale(head, arr){
 function drawGame(){
     if(game_paused){
         clearInterval(game);
-        document.body.appendChild(resumeButton);
+        addPauseButtons()
     }
+    
+    appendControlButtons();
     
     if(new_game){
         document.body.appendChild(startButton);
@@ -398,7 +472,7 @@ function drawGame(){
 
     ctx.fillStyle = "black";
     ctx.font = "40px Times new roman Bold";
-    ctx.fillText("Score: " + score, 400, 45);
+    ctx.fillText("Score: " + score, 400, 40);
 
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
@@ -418,10 +492,7 @@ function drawGame(){
                     foodGenerated = true;
                 }
             }
-            if(foodGenerated === false){
-                continue;
-            }
-            else{
+            if(foodGenerated){
                 break;
             }
         }
@@ -430,13 +501,29 @@ function drawGame(){
         snake.pop();
     }
 
-    if(snakeX === 0 || snakeX > box * 28 || snakeY < box * 3 || snakeY > box * 19){
+    /*if(snakeX === 0 || snakeX > box * 28 || snakeY < box * 3 || snakeY > box * 19){
         clearInterval(game);
         gameStarted = false;
         document.body.appendChild(restartButton);
+    }*/
+    
+    if(snakeX > box * 29){
+        snakeX = 0;
     }
 
-    for(let i = 0; i < 30; i++){
+    if(snakeX < 0){
+        snakeX = box * 29;
+    }
+    
+    if(snakeY < box * 3){
+        snakeY = box * 20;
+    }
+
+    if(snakeY > box * 20){
+        snakeY = box * 2;
+    }
+    
+    /*for(let i = 0; i < 30; i++){
         ctx.drawImage(wallImg, i * box, 2 * box);
         ctx.drawImage(wallImg, i * box, 20 * box);
     }
@@ -444,7 +531,7 @@ function drawGame(){
     for(let i = 3; i < 20; i++){
         ctx.drawImage(wallImg, 0, i * box);
         ctx.drawImage(wallImg, 29 * box, i * box);
-    }
+    }*/
 
     switch (dir){
         case "left":
